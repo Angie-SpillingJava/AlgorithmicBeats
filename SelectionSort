@@ -1,0 +1,44 @@
+package com.code.practice;
+
+import java.util.Arrays;
+
+public class SelectionSort {
+	
+	public static void main(String[] args){
+		
+		int[] unsortedarr=new int[]{ 5, 4, 3, 2, 1 };
+		
+		System.out.println(Arrays.toString(unsortedarr));
+		
+		selectsort(unsortedarr);
+		
+		System.out.println(Arrays.toString(unsortedarr));
+		
+	}
+	
+	public static void selectsort(int[] arr){
+		
+		int length=arr.length;
+		
+		for(int i=0 ; i<length ; i++){
+			
+			int smallestelementindex = i;
+			
+			for(int j=i+1 ; j<length ; j++){
+				
+				if(arr[smallestelementindex] > arr[j]){
+					
+					smallestelementindex = j;
+				
+				}
+				//Swap elements
+				int smallestelement = arr[smallestelementindex];
+				arr[smallestelementindex] = arr[i];
+				arr[i] = smallestelement;
+			}
+
+		}
+		
+	}
+
+}
