@@ -30,6 +30,10 @@ Space Complexity
 
 To sort given array we require a temporary array of size equal to size of original array. Hence space complexity of merge sort = O(n)
 
+Stability : Stable : It depends on the merge algorithm that is implemented as a part of the merge sort algorithm.
+but if you changed the 97th line to be ->   if (arr[left]<arr[right])   then the merge sort implemented by your algo would become unstable.
+http://courses.csail.mit.edu/6.006/fall11/rec/rec07.pdf
+
 Links 
 https://examples.javacodegeeks.com/core-java/mergesort-algorithm-in-java-code-example/
 https://www.youtube.com/watch?v=TzeBrDU-JaY&feature=player_embedded
