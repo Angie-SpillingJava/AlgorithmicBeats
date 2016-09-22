@@ -1,0 +1,119 @@
+/*
+ * Mergesort is one of the most important and popular sorting algorithm used in programming. 
+Merge Sort is based on divide and conqure algorithm which states - 
+
+Divide  - Divide the problem into a number of subproblems that are smaller instances of the same problem.
+
+Conquer  - Conquer the subproblems by solving them recursively. If the subproblem sizes are small enough, however, 
+just solve the subproblems in a straightforward manner.
+
+Combine -  Combine the solutions to the subproblems into the solution for the original problem.
+
+In merge sort, first we divide the given array of element into two sub arrays. 
+This is done using middle element of an array. Thus we obtain two arrays. This resultant arrays are further 
+recursively subdivided into two sub arrays until we get single element in each array
+After splitting elements into single element array as shown above, merge sort start combining two different single 
+elemented array into one array. Thus we get sorted arrays of two elements. 
+Further these arrays are recursively sorted with the help of two sorted arrays into one
+
+Merge sort is also known as stable sort as it preserves the input order of equal elements in the sorted output array.
+
+Time Complexity
+
+Time to mergesort n elements = time to mergesort n/2 elements + time to merge two arrays each n/2 elements.
+
+As we know, Time to merge two arrays each N/2 elements is linear = n
+
+T(n) = 2T(n/2) + n =  n + nlogn = O(nlogn)
+
+Space Complexity
+
+To sort given array we require a temporary array of size equal to size of original array. Hence space complexity of merge sort = O(n)
+
+Links 
+https://examples.javacodegeeks.com/core-java/mergesort-algorithm-in-java-code-example/
+https://www.youtube.com/watch?v=TzeBrDU-JaY&feature=player_embedded
+ */
+import java.util.*;  
+
+public class MergeSort {  
+    public static void main(String[] args) {  
+        
+    	int[] arr = { 100, 50, 200, 19, 3 };  
+        
+        /*
+         * Why temparr is declared in starting?
+         * So that we have only one array to work on .
+         */
+        int[] temp = new int[arr.length];  
+        
+        mergeSort(arr, temp, 0, arr.length - 1);  
+        
+        System.out.println(Arrays.toString(arr));  
+    }  
+  
+    /** This method is used to sort array using merge sort algorithm. 
+     * @param arr 
+     * @param temp 
+     * @param left 
+     * @param right 
+     */  
+    private static void mergeSort(int[] arr, int[] temp, int left,  
+            int right) {  
+        if (left < right) {  
+            int mid = (left + right) / 2;  
+            mergeSort(arr, temp, left, mid);  
+            mergeSort(arr, temp, mid + 1, right);  
+            merge(arr, temp, left, mid + 1, right);  
+        }  
+    }  
+  
+    /** This method sorts two sorted array into one. 
+     * @param arr 
+     * @param temp 
+     * @param left 
+     * @param right 
+     * @param rightEnd 
+     * understand more at MyCodeSchool : https://www.youtube.com/watch?v=TzeBrDU-JaY&feature=player_embedded
+     */  
+    private static void merge(int[] arr, int[] temp, int left, int right,  
+            int rightEnd) {  
+		// left arrays end point
+        int leftEnd = right - 1;
+        
+		// initial index of array , Why not k=0? becaz k gonna change with each
+		// subarray
+        int k = left;
+        
+		// n is total numbers of elements in subarray needs to be copied to
+		// original array
+        int num = rightEnd - left + 1;  
+  
+        while (left <= leftEnd && right <= rightEnd)  
+            if (arr[left]<=arr[right])  
+                temp[k++] = arr[left++];  
+            else  
+                temp[k++] = arr[right++];  
+  
+        while (left <= leftEnd)  
+            // Copy rest of first half  
+            temp[k++] = arr[left++];  
+  
+        while (right <= rightEnd)  
+            // Copy rest of right half  
+            temp[k++] = arr[right++];  
+  
+        // Copy temp back to original array  
+        for (int i = 0; i < num; i++, rightEnd--)  
+            arr[rightEnd] = temp[rightEnd];  
+        
+		/*
+		 * Or 
+		 for(int i=0;i<totalItems;i++){
+			a[lowerIndexCursor+i] = tempArray[i];
+		}
+		Check : MergesortExample for more understanding 
+		https://examples.javacodegeeks.com/core-java/mergesort-algorithm-in-java-code-example/
+		 */
+    }  
+}
