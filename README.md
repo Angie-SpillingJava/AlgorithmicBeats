@@ -92,9 +92,17 @@ As we know, Time to merge two arrays each N/2 elements is linear = n
 
 T(n) = 2T(n/2) + n =  n + nlogn = O(nlogn)
 
-Space Complexity
+Mergesort	Ω(n log(n))	Θ(n log(n))	O(n log(n))	
 
+Space Complexity
+O(n)
 To sort given array we require a temporary array of size equal to size of original array. Hence space complexity of merge sort = O(n)
+
+Stability : Stable : It depends on the merge algorithm that is implemented as a part of the merge sort algorithm.
+but if you changed the 97th line to be ->   if (arr[left]<arr[right])   then the merge sort implemented by your algo would become unstable.
+http://courses.csail.mit.edu/6.006/fall11/rec/rec07.pdf
+
+
 
 Links 
 https://examples.javacodegeeks.com/core-java/mergesort-algorithm-in-java-code-example/
