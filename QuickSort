@@ -1,0 +1,122 @@
+package com.ds.sort;
+
+/*
+ *Quick Sort: This algorithm is also based on the divide and conquer approach. It reduces the space complexity and removes the use 
+ *of auxiliary array used in merge sort.
+ *
+ * we learn about insertion sort algorithm which takes O(n2) time complexity, which makes it impractical to use while programming. 
+In this  we will learn about quick sort algorithm which has average case time comlexity O(nlogn)which is better as compared to insertion 
+sort algorithm. 
+
+Quick sort algorithm is based on divide and conquer algorithm in which
+Divide -  Partition (rearrange) the array into two subarrays such that each element of left sub array is less than
+ or equal to a pivot element, which is, in turn, less than or equal to each element of right subarray.
+
+Conquer - Sort the two subarrays i.e left subarray and right subarray by recursive calls to quicksort.
+
+Combine - Because the subarrays are already sorted, no work is needed to combine them.(Quicksort works in place)
+
+Quick sort is not stable sort as it does not preserves the input order of equal elements in the sorted output array.
+
+Time Complexity
+As we know based on pivot element the input array get divided into two subarray and further we sort left subarray and right subarray 
+by recursive calls to quicksort. Assume if the left subarray does not contain any element or right subarray does not contain any element.
+In such cases, the time complexity of quick sort becomes O(n2). 
+Hence the worst casse time complexity of quick sort algorithm is O(n2). 
+The best case and average case time complexity of quick sort algorithm is O(nlogn).
+
+Use rand_partition instead of partition function in quick_sort function to reduce the time complexity of this algorithm.
+
+The worst case time complexity of this algorithm is O( n2 ), but as this is randomized algorithm, 
+its time complexity fluctuates between O( n2 ) and O(n (log n) ) and mostly it comes out to be O( n (log n)) .
+
+Space Complexity
+
+As quick sort algorithm uses inplace sorting where no extra space is required as well as quick sort use recursion which
+requires the extra space are the log(n) stack frames. Hence the space complexity of quick sort algorithm is O(logn).
+
+It is Unstable Sort 
+
+Algorithm			Time Complexity				Space Complexity
+			Best	Average			Worst			Worst
+Quicksort	Ω(n log(n))	Θ(n log(n))	O(n^2)		O(log(n))
+
+ */
+import java.util.Arrays;  
+
+public class QuickSort1 {  
+  
+    public static void main(String[] args) {  
+        int arr[] = new int[] { 1, 2, 3, 5, 6, 33, 88, 44, 99, 0, 66, 88, 33, 22, 54};   
+        
+        System.out.println("************-Input Array-**************");  
+        System.out.println(Arrays.toString(arr));  
+        
+        quickSort(arr, 0, arr.length - 1);  
+        
+        System.out.println("************-Sorted Array-**************");  
+        System.out.println(Arrays.toString(arr));  
+    }  
+  
+    /** 
+     * This method is used to sort given array using quick sort 
+     * @param arr 
+     * @param low 
+     * @param high 
+     */  
+    public static void quickSort(int[] arr, int low, int high) {  
+    	
+        int q;  
+        
+        if (high > low) {  
+        	System.out.println("Partition");
+            q = partition(arr, low, high);  
+            
+            System.out.println("quickSort1");
+            quickSort(arr, low, q - 1);  
+            
+            System.out.println("quickSort2");
+            quickSort(arr, q, high);  
+        }
+        
+    }  
+  
+    /** This method is used to partition array into two subarray based on pivot element 
+     * @param arr 
+     * @param low 
+     * @param high 
+     * @return 
+     */  
+    public static int partition(int[] arr, int low, int high) {  
+        
+    	int pivot = arr[low];  
+        System.out.println(pivot);
+        
+        System.out.println(low+" : "+high);
+        
+        while (low <= high) {  
+        
+        	while (arr[low] < pivot) {  
+                low++;  
+            }  
+            
+        	while (arr[high] > pivot) {  
+                high--;  
+            }  
+            
+        	if (low <= high) {  
+                int tmp = arr[low];  
+                arr[low] = arr[high];  
+                arr[high] = tmp;  
+                low++;  
+                high--;  
+            }  
+            
+        	System.out.println(low+" : "+high);
+        }  
+        
+        System.out.println(Arrays.toString(arr));  
+        
+        return low;  
+    }  
+}
