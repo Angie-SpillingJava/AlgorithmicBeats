@@ -63,3 +63,41 @@ Worst : O(1)
 
 It is Stable Sort  
 Great Link : https://www.youtube.com/watch?v=INHF_5RIxTE
+
+Merge Sort 
+Mergesort is one of the most important and popular sorting algorithm used in programming. 
+Merge Sort is based on divide and conqure algorithm which states - 
+
+Divide  - Divide the problem into a number of subproblems that are smaller instances of the same problem.
+
+Conquer  - Conquer the subproblems by solving them recursively. If the subproblem sizes are small enough, however, 
+just solve the subproblems in a straightforward manner.
+
+Combine -  Combine the solutions to the subproblems into the solution for the original problem.
+
+In merge sort, first we divide the given array of element into two sub arrays. 
+This is done using middle element of an array. Thus we obtain two arrays. This resultant arrays are further 
+recursively subdivided into two sub arrays until we get single element in each array
+After splitting elements into single element array as shown above, merge sort start combining two different single 
+elemented array into one array. Thus we get sorted arrays of two elements. 
+Further these arrays are recursively sorted with the help of two sorted arrays into one
+
+Merge sort is also known as stable sort as it preserves the input order of equal elements in the sorted output array.
+
+Time Complexity
+
+Time to mergesort n elements = time to mergesort n/2 elements + time to merge two arrays each n/2 elements.
+
+As we know, Time to merge two arrays each N/2 elements is linear = n
+
+T(n) = 2T(n/2) + n =  n + nlogn = O(nlogn)
+
+Space Complexity
+
+To sort given array we require a temporary array of size equal to size of original array. Hence space complexity of merge sort = O(n)
+
+Links 
+https://examples.javacodegeeks.com/core-java/mergesort-algorithm-in-java-code-example/
+https://www.youtube.com/watch?v=TzeBrDU-JaY&feature=player_embedded
+
+QuickSort
