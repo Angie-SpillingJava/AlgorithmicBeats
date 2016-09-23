@@ -1,0 +1,87 @@
+package com.ds.sort;
+
+/*
+ * Counting sort is one of the most popular linear time sorting algorithm. 
+ * Counting sort works on the principle of range in which it assumes that each element of the 
+ * given input array is an integer in a range of 0 to k 
+ * 
+In this sort, we count the frequencies of distinct elements of array and store them in an auxiliary array, 
+by mapping its value as index of auxiliary array and then place each element in its proper position in the output array 
+
+Time complexity
+
+The above algorithm uses only simple for loops. The initialization of the count array, and the second for loop
+ which performs a prefix sum on the count array, each iterate at most max + 1 times and therefore take O(max) time.
+  The other two for loops, and the initialization of the output array, each take O(n) time. Therefore, the time for
+ the whole algorithm is the sum of the times for these steps, O(n + max) where max is the largest number in given input array.
+
+Space Complexity
+
+As it uses arrays of length max + 1 and n, the total space usage of the algorithm is also O(n + max). 
+For problem instances in which the maximum key value is significantly smaller than the number of items, counting sort 
+can be highly space-efficient, as the only storage it uses other than its input and output arrays is the auxArray array 
+which uses space O(max).
+
+Stable Sort 
+
+Points to be noted:
+1. Counting sort is efficient if the range of input data is not significantly greater than the number of objects to be sorted. Consider the situation where the input sequence is between range 1 to 10K and the data is 10, 5, 10K, 5K.
+2. It is not a comparison based sorting. It running time complexity is O(n) with space proportional to the range of data.
+3. It is often used as a sub-routine to another sorting algorithm like radix sort.
+4. Counting sort uses a partial hashing to count the occurrence of the data object in O(1).
+5. Counting sort can be extended to work for negative inputs also.
+
+Code From : http://algorithms.tutorialhorizon.com/counting-sort/
+
+ */
+import java.util.*;  
+ 
+import java.util.Arrays;
+
+public class CountingSort {
+
+	public int[] sort(int[] A) {
+		int[] Result = new int[A.length + 1];
+		int[] Count = new int[A.length + 1];
+
+		for (int i = 0; i < Count.length; i++) {
+			Count[i] = 0; // put count for every element as 0
+		}
+		// Count[] will store the counts of each integer in the given array
+		for (int i = 0; i < A.length; i++) {
+			int x = Count[A[i]];
+			x++;
+			Count[A[i]] = x;
+		}
+		// • Update the Count[] so that each index will store the sum till
+		// previous step. (Count[i]=Count[i] + Count[i-1]).
+		// Now updated Count[] array will reflect the actual position of each
+		// integer in Result[].
+		for (int i = 1; i < Count.length; i++) {
+			Count[i] = Count[i] + Count[i - 1];
+		}
+		// • Now navigate the input array taking one element at a time,
+		// Count[input[i]] will tell you the index position of input[i] in
+		// Result[]. When you do that, decrease the count in Count[input[i]] by
+		// 1.
+		for (int i = A.length - 1; i >= 0; i--) {
+			int x = Count[A[i]];
+			Result[x] = A[i];
+			x--;
+			Count[A[i]] = x;
+		}
+		return Result;
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int input[] = { 2, 1, 4, 5, 7, 1, 1, 8, 9, 10, 11, 14, 15, 3, 2, 4 };
+		System.out.println("Orginal Array " + Arrays.toString(input));
+		CountingSort c = new CountingSort();
+		int[] B = c.sort(input);
+		System.out.println("Sorted Array : " + Arrays.toString(B));
+
+	}
+
+}
