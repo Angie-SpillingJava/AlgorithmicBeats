@@ -1,0 +1,38 @@
+import java.util.Arrays;
+
+/*
+ * Very Important How it is Optimized !?
+ * 
+ * As we already calculated the run time complexity of bubble sort is O(n2). 
+ * But consider a case when the given list is sorted in ascending order. In such case the above algorithm 
+ * will still iterate n-1 times and in each iteration there will be (n-1), (n-2) .... 1 comparison respectively.
+ *  As we know after every iteration through the array, the largest element moves to the end of the array, and
+ *   other elements also moved toward their correct positions, as bubbles move toward the surface. 
+ *   Considering this fact, we can deduce that during a pass, if no pair of consecutive entries is out of order, 
+ *   then the array is sorted. The below program is optimized bubble sort algorithm which implements this property 
+ *   and the best case complexity of optimized bubble sort algorithm hence becomes O(n)
+ */
+
+public class BubbleSortOptimized {
+
+	public static void main(String[] args) throws Exception {  
+        int[] arr = new int[] { 1, 2, 3, 4, 5 };  
+        BubbleSortOptimized.bubblesort(arr);  
+        System.out.println("Output - Sorted List - " + Arrays.toString(arr));  
+    }  
+  
+    public static void bubblesort(int[] numbers) {  
+        boolean swapped = true;  
+        for (int i = 0; i < numbers.length - 1 && swapped; i++) {  
+            swapped = false;  
+            for (int j = 0; j < numbers.length - i - 1; j++) {  
+                if (numbers[j + 1] < numbers[j]) {  
+                    int temp = numbers[j];  
+                    numbers[j] = numbers[j + 1];  
+                    numbers[j + 1] = temp;  
+                    swapped = true;  
+                }  
+            }  
+        }  
+    }  
+}
