@@ -1,0 +1,74 @@
+package com.ds.sort;
+
+/*
+ *  The idea of Radix Sort is to do digit by digit sort starting from least significant digit to most significant digit.
+ *   Radix sort uses counting sort as a subroutine to sort.
+ *   
+ *   Good Sources : Source :
+ https://www.youtube.com/watch?v=dHeTp6hO71U
+http://www.geeksforgeeks.org/radix-sort/
+Time Complexity : Radix Sort -- Ω(nk), Θ(nk) , O(nk)
+Space Complexity : Worst O(n+k)
+ */
+ 
+import java.util.Arrays;   
+  
+public class RadixSort {  
+	  
+    static void radixsort(int array[]) {  
+    	
+        // Find the maximum number to know number of digits  
+        int max = array[0];  
+        for (int num : array) {  
+            if (num > max) {  
+                max = num;  
+            }  
+        }  
+  
+        int exponent = 1;  
+        while (max / exponent > 0) {  
+            CountingSortProgram.sort(array, exponent);  
+            exponent *= 10;  
+        }  
+    }  
+  
+    public static void main(String[] args) {  
+        int[] inputArray = { 10, 2, 3, 4, 5, 6, 7, 8, 22, 3, 2, 3, 5, 0, 998,  
+                333 };  
+        radixsort(inputArray);  
+        System.out.println(Arrays.toString(inputArray));  
+    }  
+  
+}
+
+class CountingSortProgram {  
+  
+    public static int[] sort(int[] inputArray, int position) {  
+    	
+        int[] outputArray = new int[inputArray.length];  
+  
+        int[] auxArray = new int[10];  
+  
+        for (int i = 0; i < auxArray.length; i++) {  
+            auxArray[i] = 0;  
+        }  
+        // count number of times each element has occured  
+        for (int i = 0; i < inputArray.length; i++) {  
+            auxArray[(inputArray[i] / position) % 10] = auxArray[(inputArray[i] / position) % 10] + 1;  
+        }  
+        // indexing of each element in final array  
+        for (int i = 1; i < auxArray.length; i++) {  
+            auxArray[i] = auxArray[i] + auxArray[i - 1];  
+        }  
+        // build outputArray based on indexing in each element in auxArray  
+        for (int j = inputArray.length - 1; j >= 0; j--) {  
+            outputArray[--auxArray[(inputArray[j] / position) % 10]] = inputArray[j];  
+        }  
+  
+        // copy elements back to original array  
+        for (int i = 0; i < inputArray.length; i++) {  
+            inputArray[i] = outputArray[i];  
+        }  
+        return inputArray;  
+    }  
+}  
